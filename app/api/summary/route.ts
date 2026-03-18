@@ -38,6 +38,10 @@ export async function POST(request: NextRequest) {
       }
     });
 
+    if (!response.output_parsed) {
+      throw new Error('The AI did not return a structured summary.');
+    }
+
     return NextResponse.json({ summary: response.output_parsed });
   } catch (error) {
     return NextResponse.json(
